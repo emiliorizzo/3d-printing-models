@@ -49,7 +49,7 @@ rLabel = true;
 light = 0.2; //tolerance
 
 // Render resolution
-resolution = 180;// [10:250]
+resolution = 250;// [50:500]
 $fn=resolution;
 
 minSide = width < length ? width: length;
@@ -94,8 +94,7 @@ module top(){
             baseTop();
             translate([0,0,-labelDepth]) linear_extrude(thick)
             if(label=="separate")
-                offset(light * 2)
-                    label2D();
+                offset(light * 2) label2D();
             else    
                 label2D();                     
           }

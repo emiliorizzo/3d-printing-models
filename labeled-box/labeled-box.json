@@ -87,6 +87,28 @@
             "topChamfer": "0",
             "topHeight": "10",
             "width": "22"
+        },
+        "design default values": {
+            "cornerRadius": "46",
+            "font": "Sweet Chili",
+            "fontSize": "16",
+            "height": "76",
+            "label": "none",
+            "labelHeight": "0.4",
+            "length": "22",
+            "light": "0.1",
+            "rBox": "true",
+            "rLabel": "false",
+            "rTop": "true",
+            "resolution": "250",
+            "rotateLabel": "0",
+            "shape": "rectangle",
+            "sides": "19",
+            "text": "Soap",
+            "thick": "2.3",
+            "topChamfer": "0",
+            "topHeight": "10",
+            "width": "22"
         }
     },
     "fileFormatVersion": "1"

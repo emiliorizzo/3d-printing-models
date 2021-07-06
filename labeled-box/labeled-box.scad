@@ -45,8 +45,8 @@ rTop = true;
 rLabel = true;
 
 /*[Advanced]*/
-// Tolerance
-light = 0.2; //tolerance
+// Top fit, it depends of the printer and layer height.  For 0.2mm layer height I've been using 0.1 for small boxes and 0.2 for big boxes.
+fit = 0.2; 
 
 // Render resolution
 resolution = 250;// [50:500]
@@ -61,7 +61,7 @@ tHeight = topHeight > minTHeight ? topHeight: minTHeight;
 labelDepth = thick/2;
 tChamfer = thick / 10 * topChamfer;
 
-
+light = (fit <= thick/2) ? fit : thick/2;
 
 
 // box

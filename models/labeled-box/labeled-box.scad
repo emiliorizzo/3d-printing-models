@@ -30,7 +30,7 @@ topChamfer = 0; //[0:10]
 // Label type
 label = "separate"; // ["none","inset","relief","separate"]
 text = "MyBox";
-font = "Sweet Chili"; // ["Happy Lucky","Bakso Sapi","Wash Your Hand","Sweet Chili","VintageParty"]
+font = "Sweet Chili"; // ["Happy Lucky","Bakso Sapi","Wash Your Hand","Sweet Chili"]
 fontSize = 10; //[4:100]
 labelHeight = 0.4; // [0.2:0.1:3.2]
 rotateLabel = 0;// [-180:180]

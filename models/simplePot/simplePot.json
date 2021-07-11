@@ -1,0 +1,82 @@
+{
+    "parameterSets": {
+        "hexagon": {
+            "cornerRadius": "30",
+            "height": "50",
+            "holeSize": "10",
+            "holes": "4",
+            "length": "80",
+            "resolution": "250",
+            "shape": "polygon",
+            "sides": "6",
+            "thickness": "4.2",
+            "width": "80"
+        },
+        "cilynder": {
+            "cornerRadius": "30",
+            "height": "45",
+            "holeSize": "8",
+            "holes": "5",
+            "length": "50",
+            "resolution": "250",
+            "shape": "circle",
+            "sides": "6",
+            "thickness": "6.4",
+            "width": "65"
+        },
+        "cube": {
+            "cornerRadius": "15",
+            "height": "55",
+            "holeSize": "8",
+            "holes": "4",
+            "length": "70",
+            "resolution": "250",
+            "shape": "rectangle",
+            "sides": "6",
+            "thickness": "6.4",
+            "width": "70"
+        },
+        "flowerish": {
+            "cornerRadius": "50",
+            "height": "55",
+            "holeSize": "8",
+            "holes": "5",
+            "length": "70",
+            "resolution": "250",
+            "shape": "polygon",
+            "sides": "7",
+            "thickness": "5",
+            "width": "70"
+        },
+        "rectangular": {
+            "bottomThickness": "0",
+            "cornerRadius": "2",
+            "height": "70",
+            "holeSize": "10",
+            "holes": "4",
+            "length": "210",
+            "onlyMarkHoles": "true",
+            "resolution": "250",
+            "shape": "rectangle",
+            "sides": "3",
+            "thickness": "15",
+            "width": "110"
+        },
+        "design default values": {
+            "bottomThickness": "1.2",
+            "cornerRadius": "15",
+            "height": "55",
+            "holeSize": "8",
+            "holes": "4",
+            "length": "70",
+            "onlyMarkHoles": "false",
+            "resolution": "250",
+            "shape": "rectangle",
+            "sides": "6",
+            "thickness": "6.4",
+            "width": "70"
+        }
+    },
+    "parameterSets": "",
+    "fileFormatVersion": "1"
+}

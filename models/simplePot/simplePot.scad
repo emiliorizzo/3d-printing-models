@@ -5,13 +5,17 @@ width = 80; // width | diameter
 length = 120; 
 height = 50;
 sides = 6; // [3:36]
-thickness= 2.4;
+thickness= 3.2;
+//0=auto
+bottomThickness = 0;//[0.8:0.1:6.4] 
 // Corner Radius
 cornerRadius = 30;// [0:100]
 
+bThick = bottomThickness >= 0.8 ? bottomThickness : thickness > 1.6 ? thickness/2: 0.8;
 /* [Holes] */ 
 holes= 4; //[0:6]
 holeSize = 10;
+onlyMarkHoles = false;
 
 /* [Advanced] */ 
 resolution = 250; //[200-500];
@@ -31,27 +35,41 @@ else {
 
 module pot(){
     union(){
-        linear_extrude(thickness/2) 
-        boxShape(width,length,cr);
+        linear_extrude(bThick) 
+            boxShape(width,length,cr);
         linear_extrude(height)
-            translate([0,0,thickness/2]) difference(){
+            translate([0,0,thickness/2]) 
+            difference(){
                boxShape(width,length,cr);
-               offset(-thickness ) boxShape(width,length,cr);
-            
+               boxShape(width-2*thickness,length-2*thickness,cr);
         }
     }
 
 }
 
 module renderHoles(){
-    l = width - holeSize * 2;
+    s = (shape=="rectangle") ? width < length ? width: length : width; 
+    rot = (shape=="rectangle" && holes > 3) ? 45 :0;
+    extrude = onlyMarkHoles ? 0.2 : 4 * bThick;
+    l = s - holeSize * 2;
     union()
-        translate([0,0,-thickness]) linear_extrude(2*thickness)
-            if(holes <2 ) circle(d=holeSize);
+        translate([0,0,-extrude/2]) linear_extrude(extrude)
+            if(holes < 2 ) circle(d=holeSize);
             else    
                 for(i = [0:holes]){
-                    rotate([0,0, 360/holes * i]) translate([l/3 ,0,0])
-                        circle(d=holeSize);
+                    rotate([0,0, 360/holes * i + rot]) translate([l/2.5 ,0,0])
+                        if(onlyMarkHoles){
+                            difference(){
+                                circle(d=holeSize);
+                                circle(d=holeSize/1.25);
+                            }
+                            circle(d=1);
+                            
+                        }
+                        else{
+                            circle(d=holeSize);
+                        }
+                    
                 }
 }
 
@@ -83,8 +101,8 @@ module boxShape(w,l,cr){
         if(!cr)  square([w,l]);
         else roundedRectangle(w,l,cr);
     else
-        if(shape == "circle") circle(d=l);
-        else rotate([0,0, (sides%2 != 0 ? 270/sides : 0)]) roundedPolygon(l,cr);
+        if(shape == "circle") circle(d=w);
+        else rotate([0,0, (sides%2 != 0 ? 270/sides : 0)]) roundedPolygon(w,cr);
 }
 
 

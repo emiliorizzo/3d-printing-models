@@ -17,12 +17,28 @@ holes= 4; //[0:6]
 holeSize = 10;
 onlyMarkHoles = false;
 
+/* [Routing Template] */ 
+rtOffset = 20;
+rtHeight = 8;
+rtBushSize = 1;
+// 0 to use the same as pot
+rtCornerRadius = 0; //[0:100]
+
+/* [Render] */ 
+renderPot = true;
+renderRoutingTemplate = false;
+
 /* [Advanced] */ 
 resolution = 250; //[200-500];
 $fn=resolution;
 cr = (width/2/101) * cornerRadius;
+rtCr = rtCornerRadius > 0 ?(width/2/101) * rtCornerRadius :cr;
 
 
+if(renderPot) renderPot();
+if (renderRoutingTemplate) renderRoutingTemplate();
+
+module renderPot(){
 if(holes > 0){
     difference(){
         pot(); 
@@ -31,6 +47,12 @@ if(holes > 0){
 }
 else {
     pot();
+}
+}
+
+
+module renderRoutingTemplate(){
+    color("green") translate([width+rtOffset*3,0,0]) routingTemplate();
 }
 
 module pot(){
@@ -73,6 +95,14 @@ module renderHoles(){
                 }
 }
 
+
+module routingTemplate(){
+linear_extrude(rtHeight)
+    difference(){
+        boxShape(width + rtOffset *2,length + rtOffset * 2,rtCr);
+        offset(rtBushSize) boxShape(width,length,cr);
+    }
+}
 
 module roundedRectangle(w,l,cr){
     r = cr;

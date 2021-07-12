@@ -36,18 +36,6 @@
             "thickness": "6.4",
             "width": "70"
         },
-        "flowerish": {
-            "cornerRadius": "50",
-            "height": "55",
-            "holeSize": "8",
-            "holes": "5",
-            "length": "70",
-            "resolution": "250",
-            "shape": "polygon",
-            "sides": "7",
-            "thickness": "5",
-            "width": "70"
-        },
         "rectangular": {
             "bottomThickness": "0",
             "cornerRadius": "2",
@@ -75,6 +63,26 @@
             "sides": "6",
             "thickness": "6.4",
             "width": "70"
+        },
+        "flowerish": {
+            "bottomThickness": "0",
+            "cornerRadius": "56",
+            "height": "65",
+            "holeSize": "8",
+            "holes": "5",
+            "length": "70",
+            "onlyMarkHoles": "false",
+            "renderPot": "true",
+            "renderRoutingTemplate": "false",
+            "resolution": "250",
+            "rtBushSize": "1",
+            "rtCornerRadius": "0",
+            "rtHeight": "8",
+            "rtOffset": "20",
+            "shape": "polygon",
+            "sides": "7",
+            "thickness": "5",
+            "width": "75"
         }
     },
     "parameterSets": "",

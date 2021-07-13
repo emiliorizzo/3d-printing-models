@@ -1,17 +1,20 @@
-
+// $fa = 36;
 /* [General] */ 
 shape = "rectangle"; // ["rectangle","circle","polygon"]
-width = 80; // width | diameter
+width = 70; // width | diameter
 length = 120; 
 height = 50;
 sides = 6; // [3:36]
-thickness= 3.2;
+thickness= 4.8;
 //0=auto
 bottomThickness = 0;//[0.8:0.1:6.4] 
 // Corner Radius
-cornerRadius = 30;// [0:100]
+cornerRadius = 15;// [0:100]
+// Use it with care, the end model could be malformed. Use: advanced-> slices, to smooth
+twist = 0; //[0:360]
 
-bThick = bottomThickness >= 0.8 ? bottomThickness : thickness > 1.6 ? thickness/2: 0.8;
+
+bThick = bottomThickness >= 1.2 ? bottomThickness : thickness >= 2.4 ? thickness/2: 1.2;
 /* [Holes] */ 
 holes= 4; //[0:6]
 holeSize = 10;
@@ -23,13 +26,16 @@ rtHeight = 8;
 rtBushSize = 1;
 // 0 to use the same as pot
 rtCornerRadius = 0; //[0:100]
+rtShape = "sameAsPot"; // ["sameAsPot","rectangle","circle"]
 
 /* [Render] */ 
 renderPot = true;
 renderRoutingTemplate = false;
 
 /* [Advanced] */ 
-resolution = 250; //[200-500];
+resolution = 100; //[100-500];
+slices = 100; //[0:500]
+convexity = 10;
 $fn=resolution;
 cr = (width/2/101) * cornerRadius;
 rtCr = rtCornerRadius > 0 ?(width/2/101) * rtCornerRadius :cr;
@@ -55,18 +61,16 @@ module renderRoutingTemplate(){
     color("green") translate([width+rtOffset*3,0,0]) routingTemplate();
 }
 
-module pot(){
-    union(){
-        linear_extrude(bThick) 
-            boxShape(width,length,cr);
-        linear_extrude(height)
-            translate([0,0,thickness/2]) 
-            difference(){
-               boxShape(width,length,cr);
-               boxShape(width-2*thickness,length-2*thickness,cr);
-        }
-    }
 
+module pot(){
+
+difference(){
+        linear_extrude(height+bThick, twist=twist, slices=slices, convexity = convexity )
+            boxShape(width,length,cr);
+        translate([0,0,bThick])    
+            linear_extrude(height+bThick, twist=twist,slices=slices, convexity = convexity )
+                boxShape(width - 2*thickness,length-2*thickness,cr);
+        }
 }
 
 module renderHoles(){
@@ -97,9 +101,13 @@ module renderHoles(){
 
 
 module routingTemplate(){
+ w = width + rtOffset *2;
+ l = length + rtOffset * 2;
 linear_extrude(rtHeight)
     difference(){
-        boxShape(width + rtOffset *2,length + rtOffset * 2,rtCr);
+        if(rtShape =="rectangle") translate([-w/2,-l/2,0])  roundedRectangle(w,l,rtCr);
+        else if (rtShape=="circle") circle(d= w > l ? w:l);
+        else boxShape(w,l,rtCr);
         offset(rtBushSize) boxShape(width,length,cr);
     }
 }

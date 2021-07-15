@@ -16,9 +16,12 @@ twist = 0; //[0:360]
 
 bThick = bottomThickness >= 1.2 ? bottomThickness : thickness >= 2.4 ? thickness/2: 1.2;
 /* [Holes] */ 
-holes= 4; //[0:6]
+holes= 4; //[0:8]
 holeSize = 10;
 onlyMarkHoles = false;
+centerHole = false;
+//if it's 0 uses holeSize
+centerHoleSize = 0;
 
 /* [Routing Template] */ 
 rtOffset = 20;
@@ -28,9 +31,17 @@ rtBushSize = 1;
 rtCornerRadius = 0; //[0:100]
 rtShape = "sameAsPot"; // ["sameAsPot","rectangle","circle"]
 
+/* [Leg] */ 
+legHoleSize = 10;
+legInsertion = 5;
+legDiameter = 15;
+legHeight = 6;
+
+
 /* [Render] */ 
 renderPot = true;
 renderRoutingTemplate = false;
+renderLeg = false;
 
 /* [Advanced] */ 
 resolution = 100; //[100-500];
@@ -43,6 +54,7 @@ rtCr = rtCornerRadius > 0 ?(width/2/101) * rtCornerRadius :cr;
 
 if(renderPot) renderPot();
 if (renderRoutingTemplate) renderRoutingTemplate();
+if(renderLeg) renderLeg();
 
 module renderPot(){
 if(holes > 0){
@@ -62,10 +74,14 @@ module renderRoutingTemplate(){
 }
 
 
+module renderLeg(){
+translate([width/1.5,0,0]) leg();
+}
+
 module pot(){
 
 difference(){
-        linear_extrude(height+bThick, twist=twist, slices=slices, convexity = convexity )
+        linear_extrude(height+bThick, twist=twist, slices=slices, convexity = convexity)
             boxShape(width,length,cr);
         translate([0,0,bThick])    
             linear_extrude(height+bThick, twist=twist,slices=slices, convexity = convexity )
@@ -80,25 +96,36 @@ module renderHoles(){
     l = s - holeSize * 2;
     union()
         translate([0,0,-extrude/2]) linear_extrude(extrude)
-            if(holes < 2 ) circle(d=holeSize);
-            else    
-                for(i = [0:holes]){
+            union(){
+            if(holes < 2 || centerHole){
+               hs = (centerHoleSize) ? centerHoleSize : holeSize;
+               if(onlyMarkHoles) holeMark(hs);
+               else circle(d=hs);
+                }
+             if(holes>1){
+                  for(i = [0:holes]){
                     rotate([0,0, 360/holes * i + rot]) translate([l/2.5 ,0,0])
                         if(onlyMarkHoles){
-                            difference(){
-                                circle(d=holeSize);
-                                circle(d=holeSize/1.25);
-                            }
-                            circle(d=1);
-                            
+                            holeMark(holeSize);
                         }
                         else{
                             circle(d=holeSize);
-                        }
-                    
+                        } 
                 }
+
+                }  
+            }
+       
 }
 
+
+module holeMark(holeSize){
+difference(){
+    circle(d=holeSize);
+    circle(d=holeSize/1.25);
+}
+circle(d=1);    
+}
 
 module routingTemplate(){
  w = width + rtOffset *2;
@@ -141,6 +168,11 @@ module boxShape(w,l,cr){
     else
         if(shape == "circle") circle(d=w);
         else rotate([0,0, (sides%2 != 0 ? 270/sides : 0)]) roundedPolygon(w,cr);
+}
+
+module leg(){
+   cylinder(h=legHeight, d=legDiameter);
+   translate([0,0,legHeight]) cylinder(h=legInsertion, d=legHoleSize);
 }
 
 

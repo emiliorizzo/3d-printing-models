@@ -3,4 +3,4 @@
 ## Models
 
 - [Parametric labeled box](./models/labeled-box)
-- [Parametric simple pot](./models/simple-pot)
+- [Parametric simple pot](./models/simplePot)

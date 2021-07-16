@@ -233,19 +233,19 @@
             "width": "70"
         },
         "sedumPot": {
-            "bottomThickness": "0",
+            "bottomThickness": "2.4",
             "centerHole": "true",
-            "centerHoleSize": "20",
+            "centerHoleSize": "15",
             "convexity": "10",
             "cornerRadius": "23",
-            "height": "80",
-            "holeSize": "15",
+            "height": "75",
+            "holeSize": "10",
             "holes": "6",
             "legDiameter": "15",
             "legHeight": "6",
             "legHoleSize": "10",
             "legInsertion": "5",
-            "length": "170",
+            "length": "160",
             "onlyMarkHoles": "false",
             "renderLeg": "false",
             "renderPot": "true",
@@ -261,7 +261,7 @@
             "slices": "100",
             "thickness": "4.8",
             "twist": "32",
-            "width": "170"
+            "width": "160"
         }
     },
     "parameterSets": "",

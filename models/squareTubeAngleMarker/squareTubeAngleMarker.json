@@ -1,0 +1,14 @@
+{
+    "parameterSets": {
+        "80x40_45d": {
+            "$fn": "100",
+            "fit": "0.75",
+            "height": "40",
+            "holeDiameter": "6",
+            "thick": "2.4",
+            "width": "80"
+        }
+    },
+    "parameterSets": "",
+    "fileFormatVersion": "1"
+}

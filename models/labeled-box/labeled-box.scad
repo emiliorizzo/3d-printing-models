@@ -25,12 +25,12 @@ cornerRadius = 30;// [0:100]
 // Top Height
 topHeight = 10; // [3:300]
 topThick = thick / 2;
-topChamfer = 0; //[0:10] 
+// topChamfer = 0; //[0:10] 
 
 // Label type
 label = "separate"; // ["none","inset","relief","separate"]
 text = "MyBox";
-font = "Sweet Chili"; // ["Happy Lucky","Bakso Sapi","Wash Your Hand","Sweet Chili"]
+font = "Sweet Chili"; // ["Arial","sans-serif","Happy Lucky","Bakso Sapi","Wash Your Hand","Sweet Chili"]
 fontSize = 10; //[4:100]
 labelHeight = 0.4; // [0.2:0.1:3.2]
 rotateLabel = 0;// [-180:180]
@@ -46,7 +46,8 @@ rLabel = true;
 
 /*[Advanced]*/
 // Top fit, it depends of the printer and layer height.  For 0.2mm layer height I've been using 0.1 for small boxes and 0.2 for big boxes.
-fit = 0.2; 
+fit = 0.2;
+layerHeight = 0.2; // 
 
 // Render resolution
 resolution = 250;// [50:500]
@@ -59,7 +60,7 @@ cr = (cMax/2/101) * cornerRadius;
 minTHeight = 3 * thick;
 tHeight = topHeight > minTHeight ? topHeight: minTHeight;
 labelDepth = thick/2;
-tChamfer = thick / 10 * topChamfer;
+// tChamfer = thick / 10 * topChamfer;
 
 light = (fit <= thick/2) ? fit : thick/2;
 
@@ -122,7 +123,8 @@ translate([l/2,width/2,0])
         text(text, size = fontSize, font = font, halign = "center", valign = "center", $fn = 32);  
  }
 
-module box(){ 
+module box(){
+   echo("Box:",topThick); 
     union(){
         baseBox(height,thick,thick);
         translate([0,0,height])
@@ -153,17 +155,17 @@ module baseBox(height,thick,topTick){
     }
 }
 
-
-
 module roundedRectangle(w,l,cr){
     r = cr;
-    offset(r) offset(-r){
-        square([w,l]);   
-        circle(r);
-        translate([0,l]){circle(r);}
-        translate([w,l]){circle(r);}
-        translate([w,0]){circle(r);}
-    }
+        offset(r) offset(-r){
+            union(){
+            square([w,l]);   
+            circle(r);
+            translate([0,l]){circle(r);}
+            translate([w,l]){circle(r);}
+            translate([w,0]){circle(r);}
+        }
+        }
 }
 
 module roundedPolygon(l, cr){

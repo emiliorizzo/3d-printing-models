@@ -1,0 +1,32 @@
+{
+    "parameterSets": {
+        "handle01": {
+            "$fn": "150",
+            "baseWidth": "20",
+            "handSpace": "80",
+            "handleBevel": "2",
+            "handleHeight": "12",
+            "handleRadius": "3",
+            "handleSeparation": "15",
+            "handleThickness": "5",
+            "holeDiameter": "6",
+            "renderHandle": "true",
+            "renderHolesTemplate": "false"
+        },
+        "handle02": {
+            "$fn": "150",
+            "baseWidth": "25",
+            "handSpace": "120",
+            "handleBevel": "2",
+            "handleHeight": "12",
+            "handleRadius": "3",
+            "handleSeparation": "15",
+            "handleThickness": "5",
+            "holeDiameter": "6",
+            "renderHandle": "true",
+            "renderHolesTemplate": "true"
+        }
+    },
+    "parameterSets": "",
+    "fileFormatVersion": "1"
+}

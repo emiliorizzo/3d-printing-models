@@ -28,7 +28,7 @@ topThick = thick / 2;
 // topChamfer = 0; //[0:10] 
 
 // Label type
-label = "separate"; // ["none","inset","relief","separate"]
+label = "separate"; // ["none","inset","relief","separate","dual-extrusion"]
 text = "MyBox";
 font = "Sweet Chili"; // ["Arial","sans-serif","Happy Lucky","Bakso Sapi","Wash Your Hand","Sweet Chili"]
 fontSize = 10; //[4:100]
@@ -72,7 +72,8 @@ if(rBox) color("#fcfcfc") box();
 if(rTop) translate([0, space(1) ,tHeight])  top();
 
 // 3d label
-if(label == "separate" && rLabel) translate([0, space(2) ,0]) label();
+if(rLabel)
+    if(label == "separate" || label == "dual-extrusion") translate([0, space(2) ,0]) label();
 
 // Render Error
 if((label == "none" || !rLabel) && !rTop && !rBox) color("red") text("Nothing selected for render");

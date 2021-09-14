@@ -131,6 +131,28 @@
             "thick": "3.2",
             "topHeight": "10",
             "width": "80"
+        },
+        "squareBox": {
+            "cornerRadius": "9",
+            "fit": "0.2",
+            "font": "Wash Your Hand",
+            "fontSize": "12",
+            "height": "20",
+            "label": "dual-extrusion",
+            "labelHeight": "0.4",
+            "layerHeight": "0.2",
+            "length": "50",
+            "rBox": "true",
+            "rLabel": "true",
+            "rTop": "true",
+            "resolution": "250",
+            "rotateLabel": "0",
+            "shape": "rectangle",
+            "sides": "3",
+            "text": "Test",
+            "thick": "3.2",
+            "topHeight": "10",
+            "width": "50"
         }
     },
     "fileFormatVersion": "1"

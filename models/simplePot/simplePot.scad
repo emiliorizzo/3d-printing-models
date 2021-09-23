@@ -20,8 +20,8 @@ holes= 4; //[0:8]
 holeSize = 10;
 onlyMarkHoles = false;
 centerHole = false;
-//if it's 0 uses holeSize
-centerHoleSize = 0;
+centerHoleSize = 0;//if it's 0 uses holeSize
+
 
 /* [Routing Template] */ 
 rtOffset = 20;

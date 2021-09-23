@@ -1,0 +1,29 @@
+{
+    "parameterSets": {
+        "M5 nut": {
+            "$fn": "400",
+            "insertDiameter": "12.2",
+            "insertHeight": "4.9",
+            "insertSides": "1",
+            "light": "0.1",
+            "nut": "true",
+            "nutDiameter": "9.1",
+            "nutHeight": "4.2",
+            "nutHole": "5",
+            "nutSides": "6"
+        },
+        "M5 spacer": {
+            "$fn": "400",
+            "insertDiameter": "8.5",
+            "insertHeight": "6",
+            "insertSides": "1",
+            "light": "0.1",
+            "nut": "false",
+            "nutDiameter": "9.1",
+            "nutHeight": "4.2",
+            "nutHole": "5",
+            "nutSides": "6"
+        }
+    },
+    "fileFormatVersion": "1"
+}

@@ -10,7 +10,7 @@ shape = "rectangle"; // ["rectangle","circle","polygon"]
 width = 50; // [5:3000]
 // only for rectangles
 length = 70; // [5:3000]
-height = 20; // [10:3000]
+height = 20; // [5:3000]
 // Polygon sides
 sides = 3; // [3:36]
 

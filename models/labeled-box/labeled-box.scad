@@ -1,8 +1,17 @@
-use <./fonts/happy_lucky/HappyLuckyFree.ttf>
-use <./fonts/bakso_sapi/BaksoSapi.otf>
-use <./fonts/sweet_chili/SweetChiliDemo.ttf>
-use <./fonts/wash_your_hand/Wash Your Hand.ttf>
+use <../../fonts/happy_lucky/HappyLuckyFree.ttf>
+use <../../fonts/bakso_sapi/BaksoSapi.otf>
+use <../../fonts/sweet_chili/SweetChiliDemo.ttf>
+use <../../fonts/wash_your_hand/Wash Your Hand.ttf>
 
+
+/*[Render]*/
+
+// Render box
+rBox = true;
+// Render Top
+rTop = true;
+// Render Label
+rLabel = true;
 
 /* [General] */ 
 shape = "rectangle"; // ["rectangle","circle","polygon"]
@@ -31,23 +40,14 @@ topThick = thick / 2;
 label = "separate"; // ["none","inset","relief","separate","dual-extrusion"]
 text = "MyBox";
 font = "Sweet Chili"; // ["Arial","sans-serif","Happy Lucky","Bakso Sapi","Wash Your Hand","Sweet Chili"]
-fontSize = 10; //[4:100]
+fontSize = 10; //[1:100]
 labelHeight = 0.4; // [0.2:0.1:3.2]
 rotateLabel = 0;// [-180:180]
 
-/*[Render]*/
-
-// Render box
-rBox = true;
-// Render Top
-rTop = true;
-// Render Label
-rLabel = true;
-
 /*[Advanced]*/
 // Top fit, it depends of the printer and layer height.  For 0.2mm layer height I've been using 0.1 for small boxes and 0.2 for big boxes.
-fit = 0.2;
-layerHeight = 0.2; // 
+fit = 0.2; // [0.05:0.01:1]
+layerHeight = 0.2; // [0.05:0.01:1]
 
 // Render resolution
 resolution = 250;// [50:500]
@@ -73,7 +73,8 @@ if(rTop) translate([0, space(1) ,tHeight])  top();
 
 // 3d label
 if(rLabel)
-    if(label == "separate" || label == "dual-extrusion") translate([0, space(2) ,0]) label();
+    if(label == "separate") translate([0, space(2) ,0]) label();
+    else if(label == "dual-extrusion") translate([0, space(1) ,topHeight-labelDepth])  label(labelDepth);
 
 // Render Error
 if((label == "none" || !rLabel) && !rTop && !rBox) color("red") text("Nothing selected for render");
@@ -91,6 +92,7 @@ module top(){
             baseTop();
             label3d(labelHeight); 
             }
+    
     else
         difference(){
             baseTop();
@@ -102,8 +104,8 @@ module top(){
           }
 }
 
-module label(){
-    label3d(labelDepth - light);
+module label(d= labelDepth - light){
+    label3d(d);
 }
 
 module label3d(height){

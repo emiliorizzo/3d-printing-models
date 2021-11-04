@@ -16,9 +16,9 @@ rLabel = true;
 /* [General] */ 
 shape = "rectangle"; // ["rectangle","circle","polygon"]
 // width or polygon diameter
-width = 50; // [5:3000]
+width = 50; // [5:0.1:3000]
 // only for rectangles
-length = 70; // [5:3000]
+length = 70; // [5:,0.1,3000]
 height = 20; // [5:3000]
 // Polygon sides
 sides = 3; // [3:36]
@@ -32,9 +32,10 @@ cornerRadius = 30;// [0:100]
 
 /* [Top] */
 // Top Height
+ 
 topHeight = 10; // [3:300]
 topThick = thick / 2;
-// topChamfer = 0; //[0:10] 
+topType = "at level"; // ["at level","outside","inside"]
 
 // Label type
 label = "separate"; // ["none","inset","relief","separate","dual-extrusion"]
@@ -84,6 +85,8 @@ function space(x) = x * (width + thick*3);
 
 function getCr(l,r) = cr > l/2  ? l/2  : cr; 
 
+function getTopWidth() = (topType=="outside") ? width + thick + 2 * light : width;
+
 module top(){
     if(label == "none")
         baseTop();
@@ -114,14 +117,17 @@ module label3d(height){
 }
 
 module baseTop(){
+  topFitOffset = (fit > layerHeight) ? fit : layerHeight;
+  offset = (topType =="inside") ? -1 * (thick+topFitOffset) :0;
+  echo("Top Offset",offset);
   color("#2b2b2f")
-    mirror([0,0,180])
-        baseBox(tHeight,topThick,thick);
+    mirror([0,0,180])  
+      baseBox(tHeight,topThick,thick,getTopWidth(),offset);
 }
 
 module label2D(){
-l = shape== "rectangle" ? length : width;
-translate([l/2,width/2,0])
+l = shape== "rectangle" ? length : getTopWidth();
+translate([l/2,getTopWidth()/2,0])
      rotate([0,0,rotateLabel])
         text(text, size = fontSize, font = font, halign = "center", valign = "center", $fn = 32);  
  }
@@ -130,18 +136,20 @@ module box(){
    echo("Box:",topThick); 
     union(){
         baseBox(height,thick,thick);
-        translate([0,0,height])
-            linear_extrude(tHeight-2*thick)
-                difference(){
-                    offset(-topThick-light)
-                        boxShape(length,width,cr); 
-                    offset(-thick)
-                        boxShape(length,width,cr);   
-                }
+        if(topType=="at level")
+            translate([0,0,height])
+                linear_extrude(tHeight-2*thick)
+                    difference(){
+                        offset(-topThick-light)
+                            boxShape(length,width,cr); 
+                        offset(-thick)
+                            boxShape(length,width,cr);   
+                    }
     }
 }
 
-module baseBox(height,thick,topTick){
+module baseBox(height,thick,topTick,width=width,offset=0){
+    echo("baseBox", width,thick)
     union(){
         linear_extrude(topTick)
             boxShape(length,width,cr);
@@ -149,9 +157,9 @@ module baseBox(height,thick,topTick){
         translate([0,0,thick]){
             linear_extrude(height-thick){ 
                 difference(){
-                boxShape(length,width,cr);
+                offset(offset) boxShape(length,width,cr);
                     offset(-thick)
-                        boxShape(length,width,cr);
+                        offset(offset) boxShape(length,width,cr);
                     }   
             }
         }

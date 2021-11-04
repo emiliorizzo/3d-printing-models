@@ -1,0 +1,16 @@
+{
+    "parameterSets": {
+        "copperTape": {
+            "coreDiameter": "20",
+            "diameter": "60",
+            "divisions": "12",
+            "height": "6.2",
+            "light": "0.2",
+            "render": "A",
+            "resolution": "100",
+            "thickness": "1.2"
+        }
+    },
+    "parameterSets": "",
+    "fileFormatVersion": "1"
+}
